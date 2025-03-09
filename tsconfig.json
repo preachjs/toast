@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "outDir": "dist",
+    "jsx": "react-jsx",
+    "lib": ["ES2015"],
+    "jsxImportSource": "preact",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@preachjs/toast": ["./src"]
+    }
+  },
+  "include": ["src/*"]
+}
