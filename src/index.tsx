@@ -46,7 +46,7 @@ class Toast {
     )
   })
 
-  add(message: string, options: Options) {
+  add(message: string, options: Options = {}) {
     const usableOptions: Options = {
       position: options.position ?? 'top-center',
       type: options.type ?? 'default',
@@ -259,20 +259,20 @@ export const Toaster = () => {
 
 const toastTypes = ['success', 'error', 'info', 'warning'] as const
 
-export type ToastHelper = ((message: string, options: Options) => void) & {
+export type ToastHelper = ((message: string, options?: Options) => void) & {
   [k in (typeof toastTypes)[number]]: (
     message: string,
     options: Omit<Options, 'type'>
   ) => void
 }
 
-export const toast = ((message: string, options: Options) => {
+export const toast = ((message: string, options?: Options) => {
   toastsContainer.add(message, options)
   return
 }) as ToastHelper
 
 toastTypes.forEach(d => {
-  toast[d] = (message: string, options: Omit<Options, 'type'>) => {
+  toast[d] = (message: string, options?: Omit<Options, 'type'>) => {
     return toast(message, { ...options, type: d })
   }
 })
