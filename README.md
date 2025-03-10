@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/@preachjs/toast.svg)](https://www.npmjs.com/package/@preachjs/toast)
 
-[Demo &rarr;][https://preachjs.github.io/toast/]
+[Demo &rarr;](https://preachjs.github.io/toast/)
 
 ## Highlights
 
