@@ -88,21 +88,28 @@ nav a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #d4d4d8;
+  background-color: #f4f4f5;
   border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
 }
 
-.btn.active {
-  background: #27272a;
-  color: #efefef;
+.btn:hover {
+  background-color: #e4e4e7;
 }
+
 
 .preachjs-toast--message {
-  background: black;
+  background: #323232;
   color: white;
-  padding: 8px 16px;
-  border-radius: 6px;
-  transition: top left 250ms linear;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease-in-out;
+  min-width: 350px;
+  word-break: break-word;
 }
 
 .preachjs-toast--aligner[data-position="top"]
@@ -127,19 +134,23 @@ nav a {
 }
 
 .preachjs-toast--message[data-type="success"] {
-  background: limegreen;
+  background: #98e4c9;
+  color: #1a472a;
 }
 
 .preachjs-toast--message[data-type="error"] {
-  background: red;
+  background: #ffb3b3;
+  color: #8b0000;
 }
 
 .preachjs-toast--message[data-type="warning"] {
-  background: yellowgreen;
+  background: #ffe5b4;
+  color: #805300;
 }
 
 .preachjs-toast--message[data-type="info"] {
-  background: lightskyblue;
+  background: #b3e0ff;
+  color: #004d80;
 }
 
 @keyframes animate-top-enter {

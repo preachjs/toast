@@ -10,7 +10,7 @@ const App = () => {
     h(
       'div',
       {
-        class: 'min-h-screen flex flex-col gap-10 items-center justify-center',
+        class: 'min-h-[80vh] flex flex-col gap-10 items-center justify-center',
       },
       h(
         'div',
@@ -98,7 +98,7 @@ const App = () => {
         h(
           'button',
           {
-            class: 'btn !bg-green-500',
+            class: 'btn !bg-[#98e4c9] text-[#1a472a]',
             onClick: () => {
               toast.success('success')
             },
@@ -108,7 +108,7 @@ const App = () => {
         h(
           'button',
           {
-            class: 'btn !bg-red-500',
+            class: 'btn !bg-[#ffb3b3] text-[#8b0000]',
             onClick: () => {
               toast.error('error')
             },
@@ -118,7 +118,7 @@ const App = () => {
         h(
           'button',
           {
-            class: 'btn !bg-yellow-500',
+            class: 'btn !bg-[#ffe5b4] text-[#805300]',
             onClick: () => {
               toast.warning('warning')
             },
@@ -128,7 +128,7 @@ const App = () => {
         h(
           'button',
           {
-            class: 'btn !bg-blue-500',
+            class: 'btn !bg-[#b3e0ff] text-[#004d80]',
             onClick: () => {
               toast.info('info')
             },
