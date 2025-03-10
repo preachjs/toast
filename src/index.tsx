@@ -262,7 +262,7 @@ const toastTypes = ['success', 'error', 'info', 'warning'] as const
 export type ToastHelper = ((message: string, options?: Options) => void) & {
   [k in (typeof toastTypes)[number]]: (
     message: string,
-    options: Omit<Options, 'type'>
+    options?: Omit<Options, 'type'>
   ) => void
 }
 
