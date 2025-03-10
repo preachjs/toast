@@ -29,7 +29,8 @@
   "files": ["dist/*"],
   "scripts": {
     "dev": "concurrently 'pnpm:build watch' 'pnpm:build:docs watch'",
-    "build": "microbundle -f modern --jsxImportSource preact --external=preact,@preact/signals",
+    "build": "pnpm build:js && pnpm build:docs",
+    "build:js": "microbundle -f modern --jsxImportSource preact --external=preact,@preact/signals",
     "build:docs": "microbundle -f modern --jsxImportSource preact --external=preact,@preact/signals -o docs/bundle",
     "fix": "biome check --fix .",
     "prepare": "husky",
