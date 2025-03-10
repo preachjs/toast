@@ -6,13 +6,18 @@
 
 [Demo &rarr;][https://preachjs.github.io/toast/]
 
+## Highlights
+
+- 💅 CSS based
+- ⚡️ Built on @preact/signals
+- 📦 Tiny bundle size (~1KB GZipped)
+- 🤌 Simple API
+
 ## Install
 
 ```sh
 npm i @preachjs/toast
 ```
-
-
 
 ## Usage
 

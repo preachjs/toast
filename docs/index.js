@@ -1,5 +1,5 @@
 import { h, render } from 'preact'
-import { Toaster, toast } from './bundle/index.js'
+import { Toaster, toast } from './bundle/toast.js'
 
 let counter = 0
 
