@@ -1,6 +1,20 @@
 import { Signal, computed, effect, signal } from '@preact/signals'
-import { forwardRef } from 'preact/compat'
+import { Ref, VNode, options } from 'preact'
 import { useCallback } from 'preact/hooks'
+
+// @ts-expect-error - Preact's `_diff` hook is not part of the public types
+const oldDiff = options.__b
+// @ts-ignore
+options.__b = vnode => {
+  if (vnode.type === ToastMessageRenderer && vnode.ref) {
+    vnode.props.ref = vnode.ref
+    vnode.ref = null
+  }
+
+  if (oldDiff) oldDiff(vnode)
+}
+
+export type Type = 'success' | 'error' | 'info' | 'warning' | 'default'
 
 export type Options = {
   position?:
@@ -10,7 +24,7 @@ export type Options = {
     | 'bottom-center'
     | 'bottom-start'
     | 'bottom-end'
-  type?: 'success' | 'error' | 'info' | 'warning' | 'default'
+  type?: Type
   closeDelay?: number
 }
 
@@ -83,10 +97,19 @@ class Toast {
   }
 }
 
-export const ToastMessageRenderer = forwardRef<
-  HTMLDivElement,
-  { message: string; visible: boolean; type: string }
->(({ message, visible, type }, ref) => {
+export type ToastMessageRendererProps = {
+  message: string
+  visible: boolean
+  type: Type
+  ref: Ref<HTMLDivElement>
+}
+
+export const ToastMessageRenderer = ({
+  message,
+  visible,
+  type,
+  ref,
+}: ToastMessageRendererProps) => {
   return (
     <div
       ref={ref}
@@ -99,7 +122,7 @@ export const ToastMessageRenderer = forwardRef<
       {message}
     </div>
   )
-})
+}
 
 const toastsContainer = new Toast()
 
