@@ -1,4 +1,6 @@
-import { signal, useComputed } from '@preact/signals'
+import { Signal, computed, effect, signal } from '@preact/signals'
+import { forwardRef } from 'preact/compat'
+import { useCallback } from 'preact/hooks'
 
 export type Options = {
   position?:
@@ -9,50 +11,28 @@ export type Options = {
     | 'bottom-start'
     | 'bottom-end'
   offset?: number
+  closeDelay?: number
 }
 
 export type Message = Options & {
+  id: string
   message: string
+  visible: boolean
+}
+
+type _InternalMessage = Omit<Message, 'visible'> & {
+  visible: Signal<undefined | boolean>
 }
 
 class Toast {
-  toasts = signal<Message[]>([])
-
-  add(message: string, options: Options) {
-    const usableOptions: Options = {
-      position: options.position ?? 'top-center',
-      offset: options.offset ?? 2,
-    }
-
-    const config = {
-      message: message,
-      ...usableOptions,
-    }
-
-    this.toasts.value = [config].concat(this.toasts.value)
-
-    setTimeout(() => {
-      this.toasts.value = this.toasts.value.filter(d => {
-        return !Object.is(d, config)
-      })
-    }, 3000)
-  }
-}
-
-export const ToastMessageRenderer = ({
-  position = 'top-center',
-  message = '',
-}) => {
-  return <div class="preachjs-toast--message">{message}</div>
-}
-
-const toastsContainer = new Toast()
-
-export const Toaster = () => {
-  const byPosition = useComputed(() => {
-    return toastsContainer.toasts.value.reduce(
+  id = 0
+  toasts: Signal<_InternalMessage[]> = signal([])
+  byPosition = computed(() => {
+    return this.toasts.value.reduce(
       (acc, d) => {
-        ;(acc[d.position] ||= []).push(d)
+        const pos = d.position ?? 'top-center'
+        acc[pos] ||= []
+        acc[pos] = acc[pos].concat(d)
         return acc
       },
       {
@@ -66,28 +46,112 @@ export const Toaster = () => {
     )
   })
 
+  add(message: string, options: Options) {
+    const usableOptions: Options = {
+      position: options.position ?? 'top-center',
+      offset: options.offset ?? 2,
+    }
+
+    const id = Date.now() + '-' + this.id++
+
+    const config = {
+      id,
+      message: message,
+      visible: signal(undefined),
+      ...usableOptions,
+    }
+
+    const closeDelay = options.closeDelay ?? 3000
+
+    const dispose = effect(() => {
+      if (config.visible.value === undefined) return
+      if (config.visible.value) {
+        setTimeout(() => {
+          config.visible.value = false
+          dispose()
+        }, closeDelay - 300)
+
+        setTimeout(() => {
+          this.toasts.value = this.toasts.value.filter(d => {
+            return d.id !== id
+          })
+        }, closeDelay)
+      }
+    })
+
+    this.toasts.value = [config].concat(this.toasts.value)
+  }
+}
+
+export const ToastMessageRenderer = forwardRef<
+  HTMLDivElement,
+  { message: string; visible: boolean }
+>(({ message, visible }, ref) => {
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: visible === false ? '0' : '1',
+      }}
+      class={`preachjs-toast--message ${visible === false ? 'toast-removed' : 'toast-added'}`}
+    >
+      {message}
+    </div>
+  )
+})
+
+const toastsContainer = new Toast()
+
+export const Toaster = () => {
+  const byPosition = toastsContainer.byPosition.value
+
+  const refMonitor = useCallback(d => {
+    return node => {
+      if (!node) return
+      if (d.visible.value === undefined) {
+        d.visible.value = true
+      }
+    }
+  }, [])
+
   return (
     <div
       id="preachjs-toast--container"
       style={{
-        'position': 'fixed',
+        position: 'fixed',
         'z-index': 9999,
-        'top': '16px',
-        'left': '16px',
-        'right': '16px',
-        'bottom': '16px',
+        top: '16px',
+        left: '16px',
+        right: '16px',
+        bottom: '16px',
         'pointer-events': 'none',
-        'display': 'grid',
-        'gridTemplateColumns': 'repeat(3, minmax(0, 1fr))',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
       }}
     >
-      <div class="top-left">
-        {byPosition.value['top-left'].map(d => (
-          <ToastMessageRenderer {...d} />
+      <div
+        class="preachjs-toast--aligner"
+        data-position="top"
+        data-align="left"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          alignItems: 'flex-start',
+        }}
+      >
+        {byPosition['top-left'].map(d => (
+          <ToastMessageRenderer
+            ref={refMonitor(d)}
+            message={d.message}
+            visible={d.visible.value}
+          />
         ))}
       </div>
       <div
-        class="top-center"
+        class="preachjs-toast--aligner"
+        data-position="top"
+        data-align="center"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -95,12 +159,18 @@ export const Toaster = () => {
           alignItems: 'center',
         }}
       >
-        {byPosition.value['top-center'].map(d => (
-          <ToastMessageRenderer {...d} />
+        {byPosition['top-center'].map(d => (
+          <ToastMessageRenderer
+            ref={refMonitor(d)}
+            message={d.message}
+            visible={d.visible.value}
+          />
         ))}
       </div>
       <div
-        class="top-right"
+        class="preachjs-toast--aligner"
+        data-position="top"
+        data-align="right"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -108,12 +178,18 @@ export const Toaster = () => {
           alignItems: 'flex-end',
         }}
       >
-        {byPosition.value['top-right'].map(d => (
-          <ToastMessageRenderer {...d} />
+        {byPosition['top-right'].map(d => (
+          <ToastMessageRenderer
+            ref={refMonitor(d)}
+            message={d.message}
+            visible={d.visible.value}
+          />
         ))}
       </div>
       <div
-        class="bottom-left"
+        class="preachjs-toast--aligner"
+        data-position="bottom"
+        data-align="left"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -122,12 +198,18 @@ export const Toaster = () => {
           justifyContent: 'flex-end',
         }}
       >
-        {byPosition.value['bottom-left'].map(d => (
-          <ToastMessageRenderer {...d} />
+        {byPosition['bottom-left'].map(d => (
+          <ToastMessageRenderer
+            ref={refMonitor(d)}
+            message={d.message}
+            visible={d.visible.value}
+          />
         ))}
       </div>
       <div
-        class="bottom-center"
+        class="preachjs-toast--aligner"
+        data-position="bottom"
+        data-align="center"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -136,12 +218,18 @@ export const Toaster = () => {
           justifyContent: 'flex-end',
         }}
       >
-        {byPosition.value['bottom-center'].map(d => (
-          <ToastMessageRenderer {...d} />
+        {byPosition['bottom-center'].map(d => (
+          <ToastMessageRenderer
+            ref={refMonitor(d)}
+            message={d.message}
+            visible={d.visible.value}
+          />
         ))}
       </div>
       <div
-        class="bottom-right"
+        class="preachjs-toast--aligner"
+        data-position="bottom"
+        data-align="right"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -150,8 +238,12 @@ export const Toaster = () => {
           justifyContent: 'flex-end',
         }}
       >
-        {byPosition.value['bottom-right'].map(d => (
-          <ToastMessageRenderer {...d} />
+        {byPosition['bottom-right'].map(d => (
+          <ToastMessageRenderer
+            ref={refMonitor(d)}
+            message={d.message}
+            visible={d.visible.value}
+          />
         ))}
       </div>
     </div>

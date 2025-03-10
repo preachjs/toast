@@ -1,6 +1,8 @@
 import { h, render } from 'preact'
 import { Toaster, toast } from './bundle/index.js'
 
+let counter = 0
+
 const App = () => {
   return h(
     'div',
@@ -8,13 +10,14 @@ const App = () => {
     h(
       'div',
       {
-        class: 'flex gap-10 items-center',
+        class: 'min-h-screen flex gap-10 items-center justify-center',
       },
       h(
         'button',
         {
+          class: 'btn',
           onClick: () => {
-            toast('hello', {
+            toast(`hello ${counter++}`, {
               position: 'top-left',
             })
           },
@@ -24,6 +27,7 @@ const App = () => {
       h(
         'button',
         {
+          class: 'btn',
           onClick: () => {
             toast('hello', {
               position: 'top-center',
@@ -35,6 +39,7 @@ const App = () => {
       h(
         'button',
         {
+          class: 'btn',
           onClick: () => {
             toast('hello', {
               position: 'top-right',
@@ -46,6 +51,7 @@ const App = () => {
       h(
         'button',
         {
+          class: 'btn',
           onClick: () => {
             toast('hello', {
               position: 'bottom-left',
@@ -57,6 +63,7 @@ const App = () => {
       h(
         'button',
         {
+          class: 'btn',
           onClick: () => {
             toast('hello', {
               position: 'bottom-center',
@@ -68,6 +75,7 @@ const App = () => {
       h(
         'button',
         {
+          class: 'btn',
           onClick: () => {
             toast('hello', {
               position: 'bottom-right',

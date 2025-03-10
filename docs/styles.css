@@ -96,3 +96,80 @@ nav a {
   background: #27272a;
   color: #efefef;
 }
+
+.preachjs-toast--message {
+  background: black;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: top left 250ms linear;
+}
+
+.preachjs-toast--aligner[data-position="top"]
+  .preachjs-toast--message.toast-added {
+  animation: animate-top-enter 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+}
+
+.preachjs-toast--aligner[data-position="top"]
+  .preachjs-toast--message.toast-removed {
+  animation: animate-top-exit 0.4s forwards cubic-bezier(0.06, 0.71, 0.55, 1);
+}
+
+.preachjs-toast--aligner[data-position="bottom"]
+  .preachjs-toast--message.toast-added {
+  animation: animate-bottom-enter 0.35s cubic-bezier(0.21, 1.02, 0.73, 1)
+    forwards;
+}
+
+.preachjs-toast--aligner[data-position="bottom"]
+  .preachjs-toast--message.toast-removed {
+  animation: animate-bottom-exit 0.4s forwards cubic-bezier(0.06, 0.71, 0.55, 1);
+}
+
+@keyframes animate-top-enter {
+  0% {
+    transform: translate3d(0, -200%, 0) scale(0.6);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes animate-top-exit {
+  0% {
+    transform: translate3d(0, 0, -1px) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(0, -150%, -1px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes animate-bottom-enter {
+  0% {
+    transform: translate3d(0, 200%, 0) scale(0.6);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes animate-bottom-exit {
+  0% {
+    transform: translate3d(0, 0, -1px) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(0, 150%, -1px) scale(0.6);
+    opacity: 0;
+  }
+}
