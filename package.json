@@ -38,6 +38,7 @@
     "publint": "publint",
     "prepublishOnly": "pnpm build"
   },
+  "license": "MIT",
   "nano-staged": {
     "*.{js,ts,json}": ["biome check --fix"],
     "*.{md}": ["prettier --write"]
