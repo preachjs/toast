@@ -59,5 +59,6 @@
   "dependencies": {
     "@preachjs/popper": "^0.0.6",
     "@preact/signals": "^2.0.1"
-  }
+  },
+  "packageManager": "pnpm@9.15.9"
 }
