@@ -13,6 +13,14 @@
 - 📦 Tiny bundle size (~1KB GZipped)
 - 🤌 Simple API
 
+## Pre-requisites
+
+- You need to have `@preact/signals` installed
+
+```sh
+npm i @preact/signals
+```
+
 ## Install
 
 ```sh
