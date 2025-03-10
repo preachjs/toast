@@ -10,79 +10,131 @@ const App = () => {
     h(
       'div',
       {
-        class: 'min-h-screen flex gap-10 items-center justify-center',
+        class: 'min-h-screen flex flex-col gap-10 items-center justify-center',
       },
       h(
-        'button',
+        'div',
         {
-          class: 'btn',
-          onClick: () => {
-            toast(`hello ${counter++}`, {
-              position: 'top-left',
-            })
-          },
+          className: 'flex items-center gap-4',
         },
-        'top-left'
+        h(
+          'button',
+          {
+            class: 'btn',
+            onClick: () => {
+              toast(`hello ${counter++}`, {
+                position: 'top-left',
+              })
+            },
+          },
+          'top-left'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn',
+            onClick: () => {
+              toast('hello', {
+                position: 'top-center',
+              })
+            },
+          },
+          'top-center'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn',
+            onClick: () => {
+              toast('hello', {
+                position: 'top-right',
+              })
+            },
+          },
+          'top-right'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn',
+            onClick: () => {
+              toast('hello', {
+                position: 'bottom-left',
+              })
+            },
+          },
+          'bottom-left'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn',
+            onClick: () => {
+              toast('hello', {
+                position: 'bottom-center',
+              })
+            },
+          },
+          'bottom-center'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn',
+            onClick: () => {
+              toast('hello', {
+                position: 'bottom-right',
+              })
+            },
+          },
+          'bottom-right'
+        )
       ),
       h(
-        'button',
+        'div',
         {
-          class: 'btn',
-          onClick: () => {
-            toast('hello', {
-              position: 'top-center',
-            })
-          },
+          className: 'flex items-center gap-4',
         },
-        'top-center'
-      ),
-      h(
-        'button',
-        {
-          class: 'btn',
-          onClick: () => {
-            toast('hello', {
-              position: 'top-right',
-            })
+        h(
+          'button',
+          {
+            class: 'btn !bg-green-500',
+            onClick: () => {
+              toast.success('success')
+            },
           },
-        },
-        'top-right'
-      ),
-      h(
-        'button',
-        {
-          class: 'btn',
-          onClick: () => {
-            toast('hello', {
-              position: 'bottom-left',
-            })
+          'success'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn !bg-red-500',
+            onClick: () => {
+              toast.error('error')
+            },
           },
-        },
-        'bottom-left'
-      ),
-      h(
-        'button',
-        {
-          class: 'btn',
-          onClick: () => {
-            toast('hello', {
-              position: 'bottom-center',
-            })
+          'error'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn !bg-yellow-500',
+            onClick: () => {
+              toast.warning('warning')
+            },
           },
-        },
-        'bottom-center'
-      ),
-      h(
-        'button',
-        {
-          class: 'btn',
-          onClick: () => {
-            toast('hello', {
-              position: 'bottom-right',
-            })
+          'warning'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn !bg-blue-500',
+            onClick: () => {
+              toast.info('info')
+            },
           },
-        },
-        'bottom-right'
+          'info'
+        )
       )
     ),
     h(Toaster, {})

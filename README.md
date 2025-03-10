@@ -47,6 +47,14 @@ Shows a toast with the given message.
 | position   | string | 'top-center' | The position of the toast.         |
 | closeDelay | number | 3000         | The delay before the toast closes. |
 
+#### `toast.success(message: string, options: Options)`
+
+#### `toast.error(message: string, options: Options)`
+
+#### `toast.info(message: string, options: Options)`
+
+#### `toast.warning(message: string, options: Options)`
+
 ### `Toaster`
 
 Renders the toasts.

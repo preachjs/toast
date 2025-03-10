@@ -10,7 +10,7 @@ export type Options = {
     | 'bottom-center'
     | 'bottom-start'
     | 'bottom-end'
-  offset?: number
+  type?: 'success' | 'error' | 'info' | 'warning' | 'default'
   closeDelay?: number
 }
 
@@ -49,7 +49,7 @@ class Toast {
   add(message: string, options: Options) {
     const usableOptions: Options = {
       position: options.position ?? 'top-center',
-      offset: options.offset ?? 2,
+      type: options.type ?? 'default',
     }
 
     const id = Date.now() + '-' + this.id++
@@ -85,14 +85,15 @@ class Toast {
 
 export const ToastMessageRenderer = forwardRef<
   HTMLDivElement,
-  { message: string; visible: boolean }
->(({ message, visible }, ref) => {
+  { message: string; visible: boolean; type: string }
+>(({ message, visible, type }, ref) => {
   return (
     <div
       ref={ref}
       style={{
         opacity: visible === false ? '0' : '1',
       }}
+      data-type={type}
       class={`preachjs-toast--message ${visible === false ? 'toast-removed' : 'toast-added'}`}
     >
       {message}
@@ -145,6 +146,7 @@ export const Toaster = () => {
             ref={refMonitor(d)}
             message={d.message}
             visible={d.visible.value}
+            type={d.type}
           />
         ))}
       </div>
@@ -164,6 +166,7 @@ export const Toaster = () => {
             ref={refMonitor(d)}
             message={d.message}
             visible={d.visible.value}
+            type={d.type}
           />
         ))}
       </div>
@@ -183,6 +186,7 @@ export const Toaster = () => {
             ref={refMonitor(d)}
             message={d.message}
             visible={d.visible.value}
+            type={d.type}
           />
         ))}
       </div>
@@ -203,6 +207,7 @@ export const Toaster = () => {
             ref={refMonitor(d)}
             message={d.message}
             visible={d.visible.value}
+            type={d.type}
           />
         ))}
       </div>
@@ -223,6 +228,7 @@ export const Toaster = () => {
             ref={refMonitor(d)}
             message={d.message}
             visible={d.visible.value}
+            type={d.type}
           />
         ))}
       </div>
@@ -243,6 +249,7 @@ export const Toaster = () => {
             ref={refMonitor(d)}
             message={d.message}
             visible={d.visible.value}
+            type={d.type}
           />
         ))}
       </div>
@@ -250,6 +257,22 @@ export const Toaster = () => {
   )
 }
 
-export const toast = (message: string, options: Options) => {
-  return toastsContainer.add(message, options)
+const toastTypes = ['success', 'error', 'info', 'warning'] as const
+
+export type ToastHelper = ((message: string, options: Options) => void) & {
+  [k in (typeof toastTypes)[number]]: (
+    message: string,
+    options: Omit<Options, 'type'>
+  ) => void
 }
+
+export const toast = ((message: string, options: Options) => {
+  toastsContainer.add(message, options)
+  return
+}) as ToastHelper
+
+toastTypes.forEach(d => {
+  toast[d] = (message: string, options: Omit<Options, 'type'>) => {
+    return toast(message, { ...options, type: d })
+  }
+})
