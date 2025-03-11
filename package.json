@@ -30,8 +30,8 @@
   "scripts": {
     "dev": "concurrently 'pnpm:build watch' 'pnpm:build:docs watch'",
     "build": "pnpm build:js && pnpm build:docs",
-    "build:js": "microbundle -f modern --jsxImportSource preact --external=preact,@preact/signals",
-    "build:docs": "microbundle -f modern --jsxImportSource preact --external=preact,@preact/signals -o docs/bundle",
+    "build:js": "microbundle -f modern",
+    "build:docs": "microbundle -f modern -o docs/bundle",
     "fix": "biome check --fix .",
     "prepare": "husky",
     "next": "bumpp",
@@ -59,8 +59,11 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "@preachjs/popper": "^0.0.6",
-    "@preact/signals": "^2.0.1"
+    "@preachjs/popper": "^0.0.6"
+  },
+  "peerDependencies": {
+    "@preact/signals": "^2.0.1",
+    "preact": "^10"
   },
   "packageManager": "pnpm@9.15.9"
 }

@@ -4,9 +4,9 @@
     "moduleResolution": "bundler",
     "declaration": true,
     "outDir": "dist",
-    "jsx": "preserve",
+    "jsx": "react",
+    "jsxFactory": "h",
     "lib": ["ES2015"],
-    "jsxImportSource": "preact",
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
