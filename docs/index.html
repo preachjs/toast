@@ -1,33 +1,38 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.twind.style" crossorigin></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="https://esm.sh/tsx"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.twind.style" crossorigin></script>
-  <link rel="stylesheet" href="styles.css" />
-  <script type="module" src="https://esm.sh/tsx"></script>
-</head>
-
-<body>
-  <header>
-    <div class="overlay">
-      <div class="home">
-        <a href="/">@preachjs/toast</a>
+  <body>
+    <header>
+      <div class="overlay">
+        <div class="home">
+          <a href="/">@preachjs/toast</a>
+        </div>
+        <nav>
+          <a href="https://github.com/preachjs/toast/#readme.md" target="_blank"
+            >docs ↗</a
+          >
+          <a href="https://github.com/preachjs/toast" target="_blank"
+            >source ↗</a
+          >
+        </nav>
       </div>
-      <nav>
-        <a href="https://github.com/preachjs/toast/#readme.md" target="_blank">docs ↗</a>
-        <a href="https://github.com/preachjs/toast" target="_blank">source ↗</a>
-      </nav>
-    </div>
-  </header>
-  <section>
-    <pre class="code-block"><code>npm i <strong>@preachjs/toast</strong></code></pre>
-  </section>
-  <section>
-    <div id="app"></div>
-  </section>
-  <script type="importmap">
+    </header>
+    <section>
+      <pre
+        class="code-block"
+      ><code>npm i <strong>@preachjs/toast</strong></code></pre>
+    </section>
+    <section>
+      <div id="app"></div>
+    </section>
+    <script type="importmap">
       {
         "imports": {
           "@preact/signals": "https://ga.jspm.io/npm:@preact/signals@2.0.1/dist/signals.module.js",
@@ -43,10 +48,12 @@
         }
       }
     </script>
-  <!-- ES Module Shims import maps polyfills -->
-  <script async src="https://ga.jspm.io/npm:es-module-shims@2.0.10/dist/es-module-shims.js"
-    crossorigin="anonymous"></script>
-  <script type="module" src="./index.js"></script>
-</body>
-
+    <!-- ES Module Shims import maps polyfills -->
+    <script
+      async
+      src="https://ga.jspm.io/npm:es-module-shims@2.0.10/dist/es-module-shims.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./index.js"></script>
+  </body>
 </html>

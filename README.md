@@ -36,24 +36,23 @@ const App = () => {
 
 ## API
 
-### `toast(message: string, options: Options)`
+### `toast(message: string, options?: Options)`
 
-Shows a toast with the given message.
+Displays a toast with the provided message.
 
 #### Options
 
-| Name       | Type   | Default      | Description                        |
-| ---------- | ------ | ------------ | ---------------------------------- |
-| position   | string | 'top-center' | The position of the toast.         |
-| closeDelay | number | 3000         | The delay before the toast closes. |
+| Name       | Type   | Default      | Description                                                     |
+| ---------- | ------ | ------------ | --------------------------------------------------------------- |
+| position   | string | 'top-center' | Position of the toast (e.g., 'top-left', 'bottom-right', etc.). |
+| closeDelay | number | 3000         | Delay in milliseconds before the toast automatically closes.    |
 
-#### `toast.success(message: string, options: Options)`
+#### Toast Variants
 
-#### `toast.error(message: string, options: Options)`
-
-#### `toast.info(message: string, options: Options)`
-
-#### `toast.warning(message: string, options: Options)`
+- `toast.success(message: string, options?: Options)`
+- `toast.error(message: string, options?: Options)`
+- `toast.info(message: string, options?: Options)`
+- `toast.warning(message: string, options?: Options)`
 
 ### `Toaster`
 
