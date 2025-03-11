@@ -1,13 +1,17 @@
-import { h } from 'preact'
 import { Signal, computed, effect, signal } from '@preact/signals'
-import { Ref, VNode, options } from 'preact'
+import { Ref, VNode, h, options } from 'preact'
 import { useCallback } from 'preact/hooks'
 
-// @ts-expect-error - Preact's `_diff` hook is not part of the public types
+declare module 'preact' {
+  interface Options {
+    __b: (node: VNode) => void
+  }
+}
+
 const oldDiff = options.__b
-// @ts-ignore
-options.__b = vnode => {
-  if (vnode.type === ToastMessageRenderer && vnode.ref) {
+options.__b = (vnode: VNode) => {
+  if (vnode.type === ToastMessageRenderer && 'ref' in vnode) {
+    // @ts-expect-error force augment the value
     vnode.props.ref = vnode.ref
     vnode.ref = null
   }
@@ -281,7 +285,7 @@ export const Toaster = () => {
   )
 }
 
-const toastTypes = ['success', 'error', 'info', 'warning'] as const
+const toastTypes: Type[] = ['success', 'error', 'info', 'warning']
 
 export type ToastHelper = ((message: string, options?: Options) => void) & {
   [k in (typeof toastTypes)[number]]: (
