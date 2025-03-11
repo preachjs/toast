@@ -1,3 +1,4 @@
+import { h } from 'preact'
 import { Signal, computed, effect, signal } from '@preact/signals'
 import { forwardRef } from 'preact/compat'
 import { useCallback } from 'preact/hooks'
