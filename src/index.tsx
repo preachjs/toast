@@ -23,12 +23,12 @@ export type Type = 'success' | 'error' | 'info' | 'warning' | 'default'
 
 export type Options = {
   position?:
-    | 'top-start'
-    | 'top-end'
+    | 'top-left'
+    | 'top-right'
     | 'top-center'
     | 'bottom-center'
-    | 'bottom-start'
-    | 'bottom-end'
+    | 'bottom-left'
+    | 'bottom-right'
   type?: Type
   closeDelay?: number
 }
