@@ -36,6 +36,10 @@ const App = () => {
 
 ## API
 
+### `Toaster`
+
+Component that acts a container for the toasts.
+
 ### `toast(message: string, options?: Options)`
 
 Displays a toast with the provided message.
@@ -53,10 +57,19 @@ Displays a toast with the provided message.
 - `toast.error(message: string, options?: Options)`
 - `toast.info(message: string, options?: Options)`
 - `toast.warning(message: string, options?: Options)`
+- `async toast.promise(message: string, options?: PromiseOptions)`
 
-### `Toaster`
+### `toast.promise(promise: Promise, options: PromiseOptions)`
 
-Renders the toasts.
+Displays toasts for different promise states.
+
+#### PromiseOptions
+
+| Name    | Type   | Description                                      |
+| ------- | ------ | ------------------------------------------------ |
+| loading | string | Message to display while the promise is pending. |
+| success | string | Message to display if the promise resolves.      |
+| error   | string | Message to display if the promise rejects.       |
 
 ## License
 

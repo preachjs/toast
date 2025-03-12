@@ -134,6 +134,30 @@ const App = () => {
             },
           },
           'info'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn ',
+            onClick: async () => {
+              const valueFromPromise = await toast.promise(
+                async () => {
+                  return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                      resolve(1)
+                    }, 4000)
+                  })
+                },
+                {
+                  error: 'Failed',
+                  done: 'Completed',
+                  loading: 'Loading...',
+                }
+              )
+              console.log({ valueFromPromise })
+            },
+          },
+          'promise'
         )
       )
     ),
