@@ -158,6 +158,35 @@ const App = () => {
             },
           },
           'promise'
+        ),
+        h(
+          'button',
+          {
+            class: 'btn ',
+            onClick: () => {
+              toast(() =>
+                h(
+                  'h1',
+                  {
+                    ref: node => {
+                      if (!node) return
+                      // you don't have to do this, doing this
+                      // since I have styled the toast message
+                      // globally
+                      node.parentNode.classList.remove(
+                        'preachjs-toast--message'
+                      )
+                      node.parentNode.classList.remove('toast-removed')
+                    },
+                    class:
+                      'flex border items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow-sm',
+                  },
+                  'Random JSX Styled Element'
+                )
+              )
+            },
+          },
+          'jsx message'
         )
       )
     ),
