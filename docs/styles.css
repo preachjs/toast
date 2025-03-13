@@ -96,6 +96,7 @@ nav a {
 
 .btn:hover {
   background-color: #e4e4e7;
+  cursor: pointer;
 }
 
 .preachjs-toast--message {
