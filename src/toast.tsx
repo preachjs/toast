@@ -1,6 +1,7 @@
 import { Signal, computed, effect, signal } from '@preact/signals'
-import { Ref, VNode, h, options } from 'preact'
-import { useCallback } from 'preact/hooks'
+import { Ref, VNode, h, options, Fragment } from 'preact'
+import type { JSX } from 'preact'
+import { useCallback, useMemo } from 'preact/hooks'
 import { createToastPromise } from './promise'
 import {
   _InternalMessage,
@@ -50,7 +51,10 @@ class Toast {
     )
   })
 
-  add(message: string, options: Options = {}): ToastContext {
+  add(
+    message: string | (() => JSX.Element),
+    options: Options = {}
+  ): ToastContext {
     const usableOptions: Options = {
       position: options.position ?? 'top-center',
       type: options.type ?? 'default',
@@ -108,6 +112,15 @@ export const ToastMessageRenderer = ({
   type,
   ref,
 }: ToastMessageRendererProps) => {
+  const elm = useMemo(() => {
+    let _message: JSX.Element
+    if (typeof message === 'function') {
+      _message = message()
+    } else {
+      _message = <>{message}</>
+    }
+    return _message
+  }, [message])
   return (
     <div
       ref={ref}
@@ -117,7 +130,7 @@ export const ToastMessageRenderer = ({
       data-type={type}
       class={`preachjs-toast--message ${visible === false ? 'toast-removed' : 'toast-added'}`}
     >
-      {message}
+      {elm}
     </div>
   )
 }
