@@ -22,7 +22,7 @@ npm i @preachjs/toast
 ## Usage
 
 ```js
-import { Toaster, toast } from '@preachjs/toast'
+import { toast, Toaster } from '@preachjs/toast'
 
 const App = () => {
   return (
@@ -46,18 +46,27 @@ Displays a toast with the provided message.
 
 #### Options
 
-| Name       | Type   | Default      | Description                                                     |
-| ---------- | ------ | ------------ | --------------------------------------------------------------- |
-| position   | string | 'top-center' | Position of the toast (e.g., 'top-left', 'bottom-right', etc.). |
-| closeDelay | number | 3000         | Delay in milliseconds before the toast automatically closes.    |
+| Name       | Type   | Default      | Description                                                                                                                     |
+| ---------- | ------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| position   | string | 'top-center' | Position of the toast. Available options: 'top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right' |
+| closeDelay | number | 3000         | Delay in milliseconds before the toast automatically closes.                                                                    |
+
+#### MessageInput
+
+Can be either a string or a JSX element:
+
+```tsx
+type MessageInput = string | JSX.Element
+```
 
 #### Toast Variants
 
-- `toast.success(message: string, options?: Options)`
-- `toast.error(message: string, options?: Options)`
-- `toast.info(message: string, options?: Options)`
-- `toast.warning(message: string, options?: Options)`
-- `async toast.promise(message: string, options?: PromiseOptions)`
+- `toast.success(message: MessageInput, options?: Options)` - Green success
+  toast
+- `toast.error(message: MessageInput, options?: Options)` - Red error toast
+- `toast.info(message: MessageInput, options?: Options)` - Blue info toast
+- `toast.warning(message: MessageInput, options?: Options)` - Yellow warning
+  toast
 
 ### `toast.promise(promise: Promise, options: PromiseOptions)`
 
@@ -70,6 +79,20 @@ Displays toasts for different promise states.
 | loading | string | Message to display while the promise is pending. |
 | success | string | Message to display if the promise resolves.      |
 | error   | string | Message to display if the promise rejects.       |
+
+### Promise Example
+
+```tsx
+const saveData = async () => {
+  const promise = fetch('/api/data')
+
+  toast.promise(promise, {
+    loading: 'Saving...',
+    success: 'Data saved!',
+    error: 'Failed to save data',
+  })
+}
+```
 
 ## License
 

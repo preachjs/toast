@@ -1,15 +1,16 @@
 import { Signal, computed, effect, signal } from '@preact/signals'
-import { Ref, VNode, h, options, Fragment } from 'preact'
+import { Fragment, Ref, VNode, h, options } from 'preact'
 import type { JSX } from 'preact'
 import { useCallback, useMemo } from 'preact/hooks'
 import { createToastPromise } from './promise'
 import {
-  _InternalMessage,
+  MessageInput,
   Options,
   ToastContext,
   ToastHelper,
   ToastMessageRendererProps,
   Type,
+  _InternalMessage,
 } from './types'
 
 declare module 'preact' {
@@ -51,10 +52,7 @@ class Toast {
     )
   })
 
-  add(
-    message: string | (() => JSX.Element),
-    options: Options = {}
-  ): ToastContext {
+  add(message: MessageInput, options: Options = {}): ToastContext {
     const usableOptions: Options = {
       position: options.position ?? 'top-center',
       type: options.type ?? 'default',
@@ -153,15 +151,15 @@ export const Toaster = () => {
     <div
       id="preachjs-toast--container"
       style={{
-        position: 'fixed',
+        'position': 'fixed',
         'z-index': 9999,
-        top: '16px',
-        left: '16px',
-        right: '16px',
-        bottom: '16px',
+        'top': '16px',
+        'left': '16px',
+        'right': '16px',
+        'bottom': '16px',
         'pointer-events': 'none',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+        'display': 'grid',
+        'gridTemplateColumns': 'repeat(3, minmax(0, 1fr))',
       }}
     >
       <div
