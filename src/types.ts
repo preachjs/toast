@@ -1,9 +1,12 @@
 import { Signal } from '@preact/signals'
 import { Ref } from 'preact'
+import type { JSX } from 'preact'
 import { PromiseOptions } from './promise'
 
+export type MessageInput = string | (() => JSX.Element)
+
 export type ToastMessageRendererProps = {
-  message: string
+  message: MessageInput
   visible: boolean
   type: Type
   ref: Ref<HTMLDivElement>
@@ -12,11 +15,11 @@ export type ToastMessageRendererProps = {
 export type Type = 'success' | 'error' | 'info' | 'warning' | 'default'
 
 export type ToastHelper = ((
-  message: string,
+  message: MessageInput,
   options?: Options
 ) => ToastContext) & {
   [k in Type[number]]: (
-    message: string,
+    message: MessageInput,
     options?: Omit<Options, 'type'>
   ) => ToastContext
 } & {
@@ -40,16 +43,16 @@ export type Options = {
 
 export type Message = Options & {
   id: string
-  message: string
+  message: MessageInput
   visible: boolean
 }
 
 export type ToastContext = {
-  update(message: string): void
+  update(message: MessageInput): void
   close(): void
 }
 
 export type _InternalMessage = Omit<Message, 'visible' | 'message'> & {
   visible: Signal<undefined | boolean>
-  message: Signal<string>
+  message: Signal<MessageInput>
 }
