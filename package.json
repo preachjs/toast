@@ -1,6 +1,6 @@
 {
   "name": "@preachjs/toast",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "toasts for preact",
   "homepage": "https://github.com/preachjs/toast",
   "bugs": {
@@ -26,7 +26,9 @@
     "./package.json": "./package.json"
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist/*"],
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "dev": "concurrently 'pnpm:build watch' 'pnpm:build:docs watch'",
     "build": "pnpm build:js && pnpm build:docs",
@@ -40,8 +42,12 @@
   },
   "license": "MIT",
   "nano-staged": {
-    "*.{js,ts,json}": ["biome check --fix"],
-    "*.{md}": ["prettier --write"]
+    "*.{js,ts,json}": [
+      "biome check --fix"
+    ],
+    "*.{md}": [
+      "prettier --write"
+    ]
   },
   "prettier": "@barelyhuman/prettier-config",
   "devDependencies": {
