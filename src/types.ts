@@ -18,7 +18,7 @@ export type ToastHelper = ((
   message: MessageInput,
   options?: Options
 ) => ToastContext) & {
-  [k in Type[number]]: (
+  [k in Type]: (
     message: MessageInput,
     options?: Omit<Options, 'type'>
   ) => ToastContext
