@@ -1,7 +1,7 @@
 import { Signal } from '@preact/signals'
 import { Ref } from 'preact'
 import type { JSX } from 'preact'
-import { PromiseOptions } from './promise'
+import { PromiseOptions } from './promise.js'
 
 export type MessageInput = string | (() => JSX.Element)
 

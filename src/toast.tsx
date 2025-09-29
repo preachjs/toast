@@ -2,7 +2,7 @@ import { Signal, computed, effect, signal } from '@preact/signals'
 import { Fragment, Ref, VNode, h, options } from 'preact'
 import type { JSX } from 'preact'
 import { useCallback, useMemo } from 'preact/hooks'
-import { createToastPromise } from './promise'
+import { createToastPromise } from './promise.js'
 import {
   MessageInput,
   Options,
@@ -11,7 +11,7 @@ import {
   ToastMessageRendererProps,
   Type,
   _InternalMessage,
-} from './types'
+} from './types.js'
 
 declare module 'preact' {
   interface Options {
