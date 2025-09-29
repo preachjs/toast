@@ -1,4 +1,4 @@
-import { Options, ToastHelper } from './types'
+import { Options, ToastHelper } from './types.js'
 
 export type PromiseOptions = {
   error?: string
