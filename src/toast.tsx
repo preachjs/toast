@@ -175,6 +175,7 @@ export const Toaster = () => {
       >
         {byPosition['top-left'].map(d => (
           <ToastMessageRenderer
+            key={d.id}
             ref={refMonitor(d)}
             message={d.message.value}
             visible={d.visible.value}
@@ -195,6 +196,7 @@ export const Toaster = () => {
       >
         {byPosition['top-center'].map(d => (
           <ToastMessageRenderer
+            key={d.id}
             ref={refMonitor(d)}
             message={d.message.value}
             visible={d.visible.value}
@@ -215,6 +217,7 @@ export const Toaster = () => {
       >
         {byPosition['top-right'].map(d => (
           <ToastMessageRenderer
+            key={d.id}
             ref={refMonitor(d)}
             message={d.message.value}
             visible={d.visible.value}
@@ -236,6 +239,7 @@ export const Toaster = () => {
       >
         {byPosition['bottom-left'].map(d => (
           <ToastMessageRenderer
+            key={d.id}
             ref={refMonitor(d)}
             message={d.message.value}
             visible={d.visible.value}
@@ -257,6 +261,7 @@ export const Toaster = () => {
       >
         {byPosition['bottom-center'].map(d => (
           <ToastMessageRenderer
+            key={d.id}
             ref={refMonitor(d)}
             message={d.message.value}
             visible={d.visible.value}
@@ -278,6 +283,7 @@ export const Toaster = () => {
       >
         {byPosition['bottom-right'].map(d => (
           <ToastMessageRenderer
+            key={d.id}
             ref={refMonitor(d)}
             message={d.message.value}
             visible={d.visible.value}
