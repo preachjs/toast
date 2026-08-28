@@ -1,6 +1,6 @@
 {
   "name": "@preachjs/toast",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "toasts for preact",
   "homepage": "https://github.com/preachjs/toast",
   "bugs": {
